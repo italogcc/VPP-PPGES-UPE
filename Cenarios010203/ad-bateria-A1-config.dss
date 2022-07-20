@@ -1,0 +1,22 @@
+/* Definicoes de baterias */
+
+// Curva da bateria
+New LoadShape.BateriaCurva npts=24 interval=1
+~ mult=[0 0 -1 -1 -1 -1 -1 0 0 0 0 0 0 0 0 0 0 0 0.8 0.9 0.94 1 0.94 0]
+
+// Conexoes nas barras do sistema
+
+// Conexao na barra A1-1 
+New Storage.BateriaA1-1 phases=3 bus1=A1-1 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva
+
+// Conexao na barra A1-2
+New Storage.BateriaA1-2 phases=3 bus1=A1-2 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva
+
+// Conexao na barra A1-3
+New Storage.BateriaA1-3 phases=3 bus1=A1-3 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva
+
+// Conexao na barra A1-4
+New Storage.BateriaA1-4 phases=3 bus1=A1-4 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva
+
+// Conexao na barra A1-5 
+New Storage.BateriaA1-5 phases=3 bus1=A1-5 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva

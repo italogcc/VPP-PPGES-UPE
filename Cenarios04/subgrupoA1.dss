@@ -1,0 +1,43 @@
+// Identificacoes da linha
+New Line.LinhaA1-1 phases=3 bus1=A1 bus2=A1-1 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-2 phases=3 bus1=A1 bus2=A1-2 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-3 phases=3 bus1=A1 bus2=A1-3 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-4 phases=3 bus1=A1 bus2=A1-4 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-5 phases=3 bus1=A1 bus2=A1-5 length=0.2 units=km linecode=LinhaEspec
+
+// Insercao de medidor de energia "EnergyMeter"
+New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=1
+
+// Definicao da carga
+New LoadShape.CargaSemana npts=24 interval=1
+~ mult=(file=CargaSemana.csv)
+New LoadShape.CargaSemanaFim npts=24 interval=1
+~ mult=(file=CargaSemanaFim.csv)
+
+// Conexao estrela wye, considerado potencia constante
+// Cada apartamento 6kW, 6 por edificio que resultam em 36kW
+// 5 edificios resultam em 180kW
+// Comentar uma linha ao alternar entre CargaSemana e CargaSemanaFim
+New Load.CargaAptosA1 phases=3 conn=wye bus1=A kw=180 pf=0.85 kv=0.38 daily=CargaSemana
+! New Load.CargaAptosA1 phases=3 conn=wye bus1=A kw=180 pf=0.85 kv=0.38 daily=CargaSemanaFim
+
+// Resultados das grandezas eletricas no tempo
+// Linha A1
+New monitor.linhaA1_potencia element=Line.LinhaA1 terminal=1 mode=1 ppolar=0
+New monitor.linhaA1_tensao element=Line.LinhaA1 terminal=1 mode=0
+
+// Carga
+New monitor.cargaA1_potencia element=load.CargaAptosA1 terminal=1 mode=1 ppolar=0
+New monitor.cargaA1_tensao element=load.CargaAptosA1 terminal=1 mode=0
+
+// Monitoramento da barra de conexao gd-fv e ad-bateria
+// Barra A1-1
+New monitor.barraA1-1_potencia element=Line.LinhaA1-1 terminal=2 mode=1 ppolar=0
+// Barra A1-2
+New monitor.barraA1-2_potencia element=Line.LinhaA1-2 terminal=2 mode=1 ppolar=0
+// Barra A1-3
+New monitor.barraA1-3_potencia element=Line.LinhaA1-3 terminal=2 mode=1 ppolar=0
+// Barra A1-4
+New monitor.barraA1-4_potencia element=Line.LinhaA1-4 terminal=2 mode=1 ppolar=0
+// Barra A1-5
+New monitor.barraA1-5_potencia element=Line.LinhaA1-5 terminal=2 mode=1 ppolar=0

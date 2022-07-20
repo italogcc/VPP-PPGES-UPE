@@ -1,0 +1,2 @@
+Cenário	Subgrupos	RED empregado	Características
+05		A1 e A2		GD e AD			Carga própria de cada edifício e demanda de carga da rede de distribuição

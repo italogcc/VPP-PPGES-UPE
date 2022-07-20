@@ -1,0 +1,101 @@
+/*
+Universidade de Pernambuco - UPE
+Escola Politécnica de Pernambuco - POLI
+Programa de Pós Graduação Engenharia de Sistemas - PPGES
+Aluno: Italo Garcia Campos do Canto
+Tema: Plataforma Computacional em OpenDSS para simulação de Agregadores
+	  e Usinas Virtuais de Microrredes Urbanas
+	  Recife-PE, 2022
+*/
+
+
+/* Rede eletrica da distribuidora */
+New Circuit.subgrupoA1 phases=3 basekv=0.38 bus1=A
+
+/* Linhas eletricas de conexao */
+// Especificacoes da linha
+New LineCode.LinhaEspec nphases=3 basefreq=60 R1=1.15 X1=0.088 R0=1.2 X0=0.088 C1=0 C0=0 units=km
+
+// Identificacoes da linha
+New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA1-1 phases=3 bus1=A1 bus2=A1-1 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-2 phases=3 bus1=A1 bus2=A1-2 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-3 phases=3 bus1=A1 bus2=A1-3 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-4 phases=3 bus1=A1 bus2=A1-4 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-5 phases=3 bus1=A1 bus2=A1-5 length=0.2 units=km linecode=LinhaEspec
+
+/* Insercao de medidor de energia "EnergyMeter" */
+New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=1
+
+/* Definicao da carga */
+// Rever dados dos csvs do perfil da carga
+New LoadShape.CargaSemana npts=24 interval=1
+~ mult=(file=CargaSemana.csv)
+New LoadShape.CargaSemanaFim npts=24 interval=1
+~ mult=(file=CargaSemanaFim.csv)
+
+// Conexao estrela wye, considerado potencia constante
+// Cada apartamento 6kW, 6 por edificio que resultam em 36kW
+// 5 edificios resultam em 180kW
+// Comentar uma linha ao alternar entre CargaSemana e CargaSemanaFim
+New Load.CargaAptosA1 phases=3 conn=wye bus1=A kw=180 pf=0.85 kv=0.38 daily=CargaSemana
+! New Load.CargaAptosA1 phases=3 conn=wye bus1=A kw=180 pf=0.85 kv=0.38 daily=CargaSemanaFim
+
+/* Valores de bases para resultados */
+// Resultados em pu
+Set voltagebases = [0.38]
+calcVoltagebases
+
+/* Resolucao do circuito */ 
+set mode = daily
+set stepsize = 1h
+// normal 24, 48 para visualizar a carga e descarga da bateria
+set number = 48
+
+/* Resultados das grandezas eletricas no tempo */
+// Linha A1
+New monitor.linhaA1_potencia element=Line.LinhaA1 terminal=1 mode=1 ppolar=0
+New monitor.linhaA1_tensao element=Line.LinhaA1 terminal=1 mode=0
+
+// Carga
+New monitor.cargaA1_potencia element=load.CargaAptosA1 terminal=1 mode=1 ppolar=0
+New monitor.cargaA1_tensao element=load.CargaAptosA1 terminal=1 mode=0
+
+// Monitoramento da barra de conexao gd-fv e ad-bateria
+// Barra A1-1
+New monitor.barraA1-1_potencia element=Line.LinhaA1-1 terminal=2 mode=1 ppolar=0
+// Barra A1-2
+New monitor.barraA1-2_potencia element=Line.LinhaA1-2 terminal=2 mode=1 ppolar=0
+// Barra A1-3
+New monitor.barraA1-3_potencia element=Line.LinhaA1-3 terminal=2 mode=1 ppolar=0
+// Barra A1-4
+New monitor.barraA1-4_potencia element=Line.LinhaA1-4 terminal=2 mode=1 ppolar=0
+// Barra A1-5
+New monitor.barraA1-5_potencia element=Line.LinhaA1-5 terminal=2 mode=1 ppolar=0
+
+/* Conexao dos REDs - A1 */
+
+/* Conexao dos paineis fotovoltaicos */
+// Carrega o arquivo com as definicoes dos paineis fotovoltaicos
+Redirect gd-fv-A1-config.dss
+Redirect gd-fv-A1-conexao.dss
+
+/* Conexao das baterias no sistema */
+// Carrega o arquivo com as definicoes das baterias
+Redirect ad-bateria-A1-config.dss
+Redirect ad-bateria-A1-conexao.dss
+
+
+// Resolve o arquivo OpenDSS
+//solve
+
+/* Monitoramento */
+// Exibe graficos
+//Export monitors linhaA1_potencia
+//Plot monitor object=linhaA1_potencia channels=(1 3 5)
+//Export monitors linhaA1_tensao
+//Plot monitor object=linhaA1_tensao channels=(1 3 5)
+//Export monitors cargaA1_potencia
+//Plot monitor object=cargaA1_potencia channels=(1 3 5)
+//Export monitors cargaA1_tensao
+//Plot monitor object=cargaA1_tensao channels=(1 3 5)

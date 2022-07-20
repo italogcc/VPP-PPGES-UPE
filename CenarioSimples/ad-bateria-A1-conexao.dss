@@ -1,0 +1,6 @@
+/* Definicoes de baterias */
+
+// Baterias A1-1
+New monitor.ad-bateria-A1-1_potencia element=Storage.BateriaA1-1 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-1_tensao element=Storage.BateriaA1-1 terminal=1 mode=0
+New monitor.ad-bateria-A1-1_variaveis element=Storage.BateriaA1-1 terminal=1 mode=3

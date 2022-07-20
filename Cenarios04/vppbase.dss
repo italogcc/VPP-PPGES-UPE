@@ -1,0 +1,77 @@
+// Universidade de Pernambuco - UPE
+// Escola Politécnica de Pernambuco - POLI
+// Programa de Pós Graduação Engenharia de Sistemas - PPGES
+// Aluno: Italo Garcia Campos do Canto
+// Tema: Plataforma Computacional em OpenDSS para simulação de Agregadores
+//		e Usinas Virtuais de Microrredes Urbanas
+//		Recife-PE, 2022
+
+// Limpa a memoria do programa
+clear
+
+// Novo circuito
+new circuit.vppbase phases=3 basekv=0.38 bus1=A
+
+// Linhas eletricas de conexao //
+// Especificacoes da linha
+New LineCode.LinhaEspec nphases=3 basefreq=60 R1=1.15 X1=0.088 R0=1.2 X0=0.088 C1=0 C0=0 units=km
+
+// Identificacoes da linha
+// Grupo A
+New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA2 phases=3 bus1=A bus2=A2 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
+// Grupo E
+New Line.LinhaE1 phases=3 bus1=E bus2=E1 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaE2 phases=3 bus1=E bus2=E2 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaE3 phases=3 bus1=E bus2=E3 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaE4 phases=3 bus1=E bus2=E4 length=0.05 units=km linecode=LinhaEspec
+
+// Conexão com subgrupo A1
+Redirect subgrupoA1.dss
+Redirect gd-fv-A1-config.dss
+Redirect gd-fv-A1-conexao.dss
+Redirect ad-bateria-A1-config.dss
+Redirect ad-bateria-A1-conexao.dss
+
+// Conexão com subgrupo A2
+Redirect subgrupoA2.dss
+Redirect gd-fv-A2-config.dss
+Redirect gd-fv-A2-conexao.dss
+Redirect ad-bateria-A2-config.dss
+Redirect ad-bateria-A2-conexao.dss
+
+// Valores de bases para resultados //
+// Resultados em pu
+Set voltagebases = [0.38]
+calcVoltagebases
+
+// Resolucao do circuito //
+set mode = daily
+set stepsize = 1h
+// normal 24, 48 para visualizar a carga e descarga da bateria
+set number = 48
+
+// Resolve o arquivo OpenDSS
+//solve
+
+// Monitoramento //
+// Exibe graficos
+//Export monitors linhaA1_potencia
+//Plot monitor object=linhaA1_potencia channels=(1 3 5)
+//Export monitors linhaA1_tensao
+//Plot monitor object=linhaA1_tensao channels=(1 3 5)
+//Export monitors cargaA1_potencia
+//Plot monitor object=cargaA1_potencia channels=(1 3 5)
+//Export monitors cargaA1_tensao
+//Plot monitor object=cargaA1_tensao channels=(1 3 5)
+//Export monitors linhaA2_potencia
+//Plot monitor object=linhaA2_potencia channels=(1 3 5)
+//Export monitors linhaA2_tensao
+//Plot monitor object=linhaA2_tensao channels=(1 3 5)
+//Export monitors cargaA2_potencia
+//Plot monitor object=cargaA2_potencia channels=(1 3 5)
+//Export monitors cargaA2_tensao
+//Plot monitor object=cargaA2_tensao channels=(1 3 5)
+

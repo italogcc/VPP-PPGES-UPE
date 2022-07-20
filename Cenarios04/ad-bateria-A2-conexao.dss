@@ -1,0 +1,22 @@
+/* Definicoes de baterias */
+
+// Baterias A2-1
+New monitor.ad-bateria-A2-1_potencia element=Storage.BateriaA2-1 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-1_tensao element=Storage.BateriaA2-1 terminal=1 mode=0
+New monitor.ad-bateria-A2-1_variaveis element=Storage.BateriaA2-1 terminal=1 mode=3
+// Baterias A2-2
+New monitor.ad-bateria-A2-2_potencia element=Storage.BateriaA2-2 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-2_tensao element=Storage.BateriaA2-2 terminal=1 mode=0
+New monitor.ad-bateria-A2-2_variaveis element=Storage.BateriaA2-2 terminal=1 mode=3
+// Baterias A2-3
+New monitor.ad-bateria-A2-3_potencia element=Storage.BateriaA2-3 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-3_tensao element=Storage.BateriaA2-3 terminal=1 mode=0
+New monitor.ad-bateria-A2-3_variaveis element=Storage.BateriaA2-3 terminal=1 mode=3
+// Baterias A2-4
+New monitor.ad-bateria-A2-4_potencia element=Storage.BateriaA2-4 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-4_tensao element=Storage.BateriaA2-4 terminal=1 mode=0
+New monitor.ad-bateria-A2-4_variaveis element=Storage.BateriaA2-4 terminal=1 mode=3
+// Baterias A2-5
+New monitor.ad-bateria-A2-5_potencia element=Storage.BateriaA2-5 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-5_tensao element=Storage.BateriaA2-5 terminal=1 mode=0
+New monitor.ad-bateria-A2-5_variaveis element=Storage.BateriaA2-5 terminal=1 mode=3

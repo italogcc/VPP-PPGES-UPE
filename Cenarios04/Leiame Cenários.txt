@@ -1,0 +1,2 @@
+Cenário	Subgrupos	RED empregado	Características
+04		A1 e A2		GD e AD			Carga própria de cada edifício

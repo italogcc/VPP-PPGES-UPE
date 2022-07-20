@@ -1,0 +1,22 @@
+/* Definicoes dos paineis fotovoltaicos */
+
+// Paineis fotovoltaicos A1-1
+New monitor.gd-fv-A1-1_potencia element=Line.LinhaA1-1 terminal=1 mode=1 ppolar=0 
+New monitor.gd-fv-A1-1_tensao element=PVSystem.SolarA1-1 terminal=1 mode=0
+New monitor.gd-fv-A1-1_variaveis element=PVSystem.SolarA1-1 terminal=1 mode=3
+// Paineis fotovoltaicos A1-2
+New monitor.gd-fv-A1-2_potencia element=Line.LinhaA1-2 terminal=1 mode=1 ppolar=0 
+New monitor.gd-fv-A1-2_tensao element=PVSystem.SolarA1-2 terminal=1 mode=0
+New monitor.gd-fv-A1-2_variaveis element=PVSystem.SolarA1-2 terminal=1 mode=3
+// Paineis fotovoltaicos A1-3
+New monitor.gd-fv-A1-3_potencia element=Line.LinhaA1-3 terminal=1 mode=1 ppolar=0 
+New monitor.gd-fv-A1-3_tensao element=PVSystem.SolarA1-3 terminal=1 mode=0
+New monitor.gd-fv-A1-3_variaveis element=PVSystem.SolarA1-3 terminal=1 mode=3
+// Paineis fotovoltaicos A1-4
+New monitor.gd-fv-A1-4_potencia element=Line.LinhaA1-4 terminal=1 mode=1 ppolar=0 
+New monitor.gd-fv-A1-4_tensao element=PVSystem.SolarA1-4 terminal=1 mode=0
+New monitor.gd-fv-A1-4_variaveis element=PVSystem.SolarA1-4 terminal=1 mode=3
+// Paineis fotovoltaicos A1-5
+New monitor.gd-fv-A1-5_potencia element=Line.LinhaA1-5 terminal=1 mode=1 ppolar=0 
+New monitor.gd-fv-A1-5_tensao element=PVSystem.SolarA1-5 terminal=1 mode=0
+New monitor.gd-fv-A1-5_variaveis element=PVSystem.SolarA1-5 terminal=1 mode=3
