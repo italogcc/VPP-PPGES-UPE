@@ -6,7 +6,7 @@ Instruções para utilização:
 
 2. Baixar o Python disponível em: https://www.python.org/downloads/
 
-3. Instalar os módulos para Python listados a seguir:
+3. Instalar via linha de comando os módulos para Python a seguir:
    * win32com - Disponível por "pip install pypiwin32" ou https://pypi.org/project/pypiwin32/
    * DSS Interface - Disponível por "pip install py-dss-interface" ou https://pypi.org/project/py-dss-interface/
    
