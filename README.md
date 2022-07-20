@@ -23,4 +23,4 @@ Recomendações:
 Outros programas de apoio:
 
 1. Notepad++ - Disponível em: https://notepad-plus-plus.org/downloads/
-   1.1 Plugin para sintaxe do OpenDSS: https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Distrib/Examples/SyntaxFiles/OpenDSS_syntax_NotepadPlusPlus.xml
+   * Plugin para sintaxe do OpenDSS: https://sourceforge.net/p/electricdss/code/HEAD/tree/trunk/Distrib/Examples/SyntaxFiles/OpenDSS_syntax_NotepadPlusPlus.xml
