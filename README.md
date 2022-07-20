@@ -2,7 +2,7 @@
 
 Instruções para utilização:
 
-1. Baixar o código deste repositório
+1. Baixar o código deste repositório clicando em "Code">"Download ZIP" ou https://github.com/italogcc/VPP-PPGES-UPE/archive/refs/heads/main.zip
 
 2. Realizar a instalação do OpenDSS disponível em: https://sourceforge.net/projects/electricdss/
 
