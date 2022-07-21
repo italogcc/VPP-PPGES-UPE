@@ -19,19 +19,27 @@ New LineCode.LinhaEspec nphases=3 basefreq=60 R1=1.15 X1=0.088 R0=1.2 X0=0.088 C
 // Conexoes de linhas e barramentos
 // Grupos
 New Line.LinhaA phases=3 bus1=BarraDistrib bus2=A length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaE phases=3 bus1=BarraDistrib bus2=E length=0.05 units=km linecode=LinhaEspec
 
-// Subgrupos A
+// Subgrupo A
 New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA2 phases=3 bus1=A bus2=A2 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
+// Subgrupo E
+//New Line.LinhaE1 phases=3 bus1=E bus2=E1 length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaE2 phases=3 bus1=E bus2=E2 length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaE3 phases=3 bus1=E bus2=E3 length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaE4 phases=3 bus1=E bus2=E4 length=0.05 units=km linecode=LinhaEspec
 
 // Monitores de BarraDistrib para as linhas
 New monitor.LinhaA_potencia element=Line.LinhaA terminal=1 mode=1 ppolar=0
 New monitor.LinhaA_tensao element=Line.LinhaA terminal=1 mode=0
+//New monitor.LinhaE_potencia element=Line.LinhaE terminal=1 mode=1 ppolar=0
+//New monitor.LinhaE_tensao element=Line.LinhaE terminal=1 mode=0
 
 // Demanda de carga da rede de distribuicao
-//Redirect cargadistrib.dss
+Redirect cargadistrib.dss
 
 // Conexão com subgrupo A1
 Redirect subgrupoA1.dss

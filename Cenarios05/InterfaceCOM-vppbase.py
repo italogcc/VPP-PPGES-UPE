@@ -7,7 +7,7 @@
 #	   Recife-PE, 2022
 # ------------------------------------------------------------------
 # Localizar a linha: if __name__ == '__main__' e inserir o caminho do arquivo DSS
-# conforme exemplo: objeto = DSS("D:\Projetos\opendss\arquivo.dss","D:\Projetos\opendss")
+# conforme exemplo: objeto = DSS("D:\Projetos\opendss\arquivo.dss")
 # ------------------------------------------------------------------
 
 # PyWin32 para criar objetos previamente existentes (clientes) criados em outras linguagens ou componentes para servidores
@@ -18,7 +18,7 @@ import win32com.client
 class DSS(object):
 
     # Construtor
-    def __init__(self,dssArquivo,dssCaminho):
+    def __init__(self,dssArquivo):
 
         # Cria uma nova instância do OpenDSS
         # Pode simplesmente fazer: self.dssObj = win32com.client.Dispatch("OpenDSSengine.DSS")
@@ -50,6 +50,8 @@ class DSS(object):
         print("Compilando arquivo DSS localizado em: " + dssArquivo)
 
         # Configura o diretório de saída com resultados
+        ultimabarra = dssArquivo.rfind('\\')
+        dssCaminho = dssArquivo[:ultimabarra]
         dssSaida = str(dssCaminho + "\saida")
         self.dssText.Command = "set datapath=[" + dssSaida + "]"
         print("Arquivos de saída salvos em: " + dssSaida)
@@ -72,8 +74,22 @@ class DSS(object):
     def funcExibePotencias(self):
         self.dssText.Command = "show power elements"
     
-    # Funcao para exibir os monitores do OpenDSS
-    def funcMonitor(self):
+    # Funcao para exibir os monitores de linhas principais
+    def funcMonitorLinhasPrinc(self):
+        self.dssText.Command = "Export monitors LinhaA_potencia"
+        self.dssText.Command = "Plot monitor object=LinhaA_potencia channels=(1 3 5)"
+        self.dssText.Command = "Export monitors LinhaA_tensao"
+        self.dssText.Command = "Plot monitor object=LinhaA_tensao channels=(1 3 5)"
+
+    # Funcao para exibir os monitores da carga na linha de distribuição
+    def funcMonitorCargaDistrib(self):
+        self.dssText.Command = "Export monitors CargaDistrib_potencia"
+        self.dssText.Command = "Plot monitor object=CargaDistrib_potencia channels=(1 3 5)"
+        self.dssText.Command = "Export monitors CargaDistrib_tensao"
+        self.dssText.Command = "Plot monitor object=CargaDistrib_potencia channels=(1 3 5)"
+
+    # Funcao para exibir os monitores do subgrupo A1
+    def funcMonitorSubgrupoA1(self):
         self.dssText.Command = "Export monitors linhaA1_potencia"
         self.dssText.Command = "Plot monitor object=linhaA1_potencia channels=(1 3 5)"
         self.dssText.Command = "Export monitors linhaA1_tensao"
@@ -82,6 +98,12 @@ class DSS(object):
         self.dssText.Command = "Plot monitor object=cargaA1_potencia channels=(1 3 5)"
         self.dssText.Command = "Export monitors cargaA1_tensao"
         self.dssText.Command = "Plot monitor object=cargaA1_tensao channels=(1 3 5)"
+        # Subgrupo A1-1
+        self.dssText.Command = "Export monitors barraA1-1_potencia"
+        self.dssText.Command = "Plot monitor object=barraA1-1_potencia channels=(1 3 5)"
+
+    # Funcao para exibir os monitores do subgrupo A1
+    def funcMonitorSubgrupoA2(self):
         self.dssText.Command = "Export monitors linhaA2_potencia"
         self.dssText.Command = "Plot monitor object=linhaA2_potencia channels=(1 3 5)"
         self.dssText.Command = "Export monitors linhaA2_tensao"
@@ -94,16 +116,19 @@ class DSS(object):
 if __name__ == '__main__':
     # Cria um objeto da classe DSS
     # Tem como parâmetros o caminho completo do arquivo DSS principal e o caminho do diretório onde o arquivo DSS se encontra
-    # Exemplo: objeto = DSS(r"D:\Projetos\opendss\arquivo.dss",r"D:\Projetos\opendss")
-    objeto = DSS(r"D:\Projetos\opendss\Cenarios05\vppbase.dss",r"D:\Projetos\opendss\Cenarios05")
+    # Exemplo: objeto = DSS(r"D:\Projetos\opendss\arquivo.dss")
+    objeto = DSS(r"D:\Projetos\opendss\VPP-PPGES-UPE\Cenarios05\vppbase.dss")
     
     # Comando solve
     # Realizando o comando pelo Python e o comando no OpenDSS deve estar desativado
     objeto.funcSolve()
     
     # Chama a função para plotar monitores
-    objeto.funcMonitor()
-   
+    objeto.funcMonitorLinhasPrinc()
+    objeto.funcMonitorCargaDistrib()
+    objeto.funcMonitorSubgrupoA1()
+    objeto.funcMonitorSubgrupoA2()
+
     # Chama a função para exibir a tabela com as tensões
     objeto.funcExibeTensoes()
     

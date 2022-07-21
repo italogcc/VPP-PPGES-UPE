@@ -12,11 +12,13 @@ Instruções para utilização:
    
 4. Baixar o código deste repositório clicando no botão "Code">"Download ZIP" ou https://github.com/italogcc/VPP-PPGES-UPE/archive/refs/heads/main.zip
 
+5. Editar o arquivo "InterfaceDLL-vppbase.py" ou "InterfaceCOM-vppbase.py" inserindo o caminho *path* do arquivo "vppbase.dss".
+
 -----------------------------------------------------
 
 Recomendações:
 
-1. Para edição dos arquivos .dss, fazer as modificações em programas de editores de texto para em seguida reabrí-los no OpenDSS. O objetivo é evitar erros estranhos na abertura dos arquivos.
+1. Para edição dos arquivos .dss, fazer as modificações em programas editores de texto para em seguida reabrí-los no OpenDSS. O objetivo é evitar erros estranhos na abertura dos arquivos.
 
 -----------------------------------------------------
 
