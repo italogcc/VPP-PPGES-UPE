@@ -10,10 +10,11 @@
 clear
 
 // Novo circuito
-new circuit.vppbase phases=3 basekv=0.38 bus1=BarraDistrib
+new circuit.FonteDistrib phases=3 basekv=0.38 bus1=BarraDistrib
 
 // Linhas eletricas de conexao
 // Especificacoes da linha
+// Dados de linha equilibrada (depois voltar para dados anteriores)
 New LineCode.LinhaEspec nphases=3 basefreq=60 R1=1.15 X1=0.088 R0=1.2 X0=0.088 C1=0 C0=0 units=km
 
 // Conexoes de linhas e barramentos
@@ -24,13 +25,21 @@ New Line.LinhaA phases=3 bus1=BarraDistrib bus2=A length=0.05 units=km linecode=
 // Subgrupo A
 New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA2 phases=3 bus1=A bus2=A2 length=0.05 units=km linecode=LinhaEspec
-New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
-New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
+//New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
 // Subgrupo E
 //New Line.LinhaE1 phases=3 bus1=E bus2=E1 length=0.05 units=km linecode=LinhaEspec
 //New Line.LinhaE2 phases=3 bus1=E bus2=E2 length=0.05 units=km linecode=LinhaEspec
 //New Line.LinhaE3 phases=3 bus1=E bus2=E3 length=0.05 units=km linecode=LinhaEspec
 //New Line.LinhaE4 phases=3 bus1=E bus2=E4 length=0.05 units=km linecode=LinhaEspec
+
+// Medidores de energia
+// Grupo A e subgrupos A
+New EnergyMeter.medidorA element=Line.LinhaA terminal=1
+New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=1
+New EnergyMeter.medidorA2 element=Line.LinhaA2 terminal=1
+//New EnergyMeter.medidorA3 element=Line.LinhaA3 terminal=1
+//New EnergyMeter.medidorA4 element=Line.LinhaA4 terminal=1
 
 // Monitores de BarraDistrib para as linhas
 New monitor.LinhaA_potencia element=Line.LinhaA terminal=1 mode=1 ppolar=0

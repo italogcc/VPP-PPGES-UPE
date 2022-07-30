@@ -6,8 +6,8 @@ New Line.LinhaA1-4 phases=3 bus1=A1 bus2=A1-4 length=0.2 units=km linecode=Linha
 New Line.LinhaA1-5 phases=3 bus1=A1 bus2=A1-5 length=0.2 units=km linecode=LinhaEspec
 
 // Insercao de medidor de energia "EnergyMeter"
-//New EnergyMeter.medidorA1-1 element=Line.LinhaA1-1 terminal=1
-//New EnergyMeter.medidorA1-2 element=Line.LinhaA1-2 terminal=1
+New EnergyMeter.medidorA1-1 element=Line.LinhaA1-1 terminal=1
+New EnergyMeter.medidorA1-2 element=Line.LinhaA1-2 terminal=1
 
 // Definicao da carga
 New LoadShape.CargaSemana npts=24 interval=1

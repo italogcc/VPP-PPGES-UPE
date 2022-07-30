@@ -5,9 +5,10 @@ New LoadShape.CargaSemanaFim npts=24 interval=1
 ~ mult=(file=CargaSemanaFim.csv)
 
 // Conexao estrela wye, considerado potencia constante
-// Considerando uma demanda de carga de 20000kW
+// Considerando uma demanda de carga de 2000kW
+// (ou inserir 0kW para remover a carga da rede de distribuição)
 // Comentar uma linha ao alternar entre CargaSemana e CargaSemanaFim
-New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=20000 pf=0.85 kv=0.38 daily=CargaSemana
+New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=2000 pf=0.85 kv=0.38 daily=CargaSemana
 // New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=20000 pf=0.85 kv=0.38 daily=CargaSemanaFim
 
 // Monitor da carga
