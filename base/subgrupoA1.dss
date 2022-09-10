@@ -1,0 +1,25 @@
+// Identificacoes da linha
+New Line.LinhaA1-1 phases=3 bus1=A1 bus2=A1-1 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-2 phases=3 bus1=A1 bus2=A1-2 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-3 phases=3 bus1=A1 bus2=A1-3 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-4 phases=3 bus1=A1 bus2=A1-4 length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA1-5 phases=3 bus1=A1 bus2=A1-5 length=0.2 units=km linecode=LinhaEspec
+
+// Insercao de medidor de energia "EnergyMeter"
+New EnergyMeter.medidorA1-1 element=Line.LinhaA1-1 terminal=1
+New EnergyMeter.medidorA1-2 element=Line.LinhaA1-2 terminal=1
+New EnergyMeter.medidorA1-3 element=Line.LinhaA1-3 terminal=1
+New EnergyMeter.medidorA1-4 element=Line.LinhaA1-4 terminal=1
+New EnergyMeter.medidorA1-5 element=Line.LinhaA1-5 terminal=1
+
+// Monitoramento da barra de conexao gd-fv e ad-bateria
+// Barra A1-1
+New monitor.barraA1-1_potencia element=Line.LinhaA1-1 terminal=2 mode=1 ppolar=0
+// Barra A1-2
+New monitor.barraA1-2_potencia element=Line.LinhaA1-2 terminal=2 mode=1 ppolar=0
+// Barra A1-3
+New monitor.barraA1-3_potencia element=Line.LinhaA1-3 terminal=2 mode=1 ppolar=0
+// Barra A1-4
+New monitor.barraA1-4_potencia element=Line.LinhaA1-4 terminal=2 mode=1 ppolar=0
+// Barra A1-5
+New monitor.barraA1-5_potencia element=Line.LinhaA1-5 terminal=2 mode=1 ppolar=0

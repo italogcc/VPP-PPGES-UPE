@@ -1,0 +1,54 @@
+// Universidade de Pernambuco - UPE
+// Escola Politécnica de Pernambuco - POLI
+// Programa de Pós Graduação Engenharia de Sistemas - PPGES
+// Aluno: Italo Garcia Campos do Canto
+// Tema: Plataforma Computacional em OpenDSS para simulação de Agregadores
+//		e Usinas Virtuais Urbanas
+//		Recife-PE, 2022
+
+// Limpa a memoria do OpenDSS
+clear
+
+// Definicao do circuito
+New Circuit.Fonte phases=3 basekv=0.38 bus1=BarraFonte
+
+// Linhas
+New LineCode.Arranjo nphases=3 basefreq=60 units=km
+~ Rmatrix=[ 0.17 | 0.05 0.17 | 0.05 0.05 0.17 ]  ! ohm/km
+~ Xmatrix=[ 0.79 | 0.41 0.79 | 0.41 0.45 0.79 ]  ! ohm/km
+~ Cmatrix=[ 8.63 | -2.04 8.75 | -0.90 -2.04 8.41 ]  ! nF/km
+
+New Line.LinhaDistrib phases=3 bus1=BarraFonte bus2=BarraDistrib length=0.2 units=km linecode=Arranjo
+New Line.LinhaA phases=3 bus1=BarraDistrib bus2=BarraA length=0.15 units=km linecode=Arranjo
+
+// Insercao de Medidores de Energia
+New energymeter.med-LinhaDistrib element=line.LinhaDistrib terminal=1
+New energymeter.med-LinhaA element=line.LinhaA terminal=1
+
+// Definicao da carga
+New LoadShape.curvaperfil-residencial-semana npts=24 interval=1 mult=(file=curvaperfil-residencial-semana.csv)
+New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=40 pf=0.92 kv=0.38 daily=curvaperfil-residencial-semana
+
+//gd-01
+// Sem GD
+//ad-01
+// Sem AD
+
+Set voltagebases = [0.38]
+calcVoltagebases
+
+New monitor.LinhaDistrib_potencia element=line.LinhaDistrib terminal=1 mode=1 ppolar=no
+New monitor.LinhaDistrib element=line.LinhaDistrib terminal=1 mode=0
+
+New monitor.linhaA_potencia element=line.LinhaA terminal=2 mode=1 ppolar=no
+New monitor.linhaA element=line.LinhaA terminal=2 mode=0
+
+New monitor.CargaDistrib_potencia element=load.CargaDistrib terminal=1 mode=1 ppolar=0
+New monitor.CargaDistrib element=load.CargaDistrib terminal=1 mode=0
+
+set mode = daily
+set stepsize = 1h
+set number = 48
+
+
+

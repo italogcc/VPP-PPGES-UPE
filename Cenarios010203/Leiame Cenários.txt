@@ -1,4 +1,0 @@
-Cenário	Subgrupos	RED empregado				Características
-01		A1			Geração Distribuída			Carga própria de cada edifício
-02		A1			Armazenamento Distribuído	Carga própria de cada edifício
-03		A1			GD e AD						Carga própria de cada edifício

@@ -1,0 +1,13 @@
+// Definicao da carga da distribuicao
+New LoadShape.curvaperfil-industrial-semana npts=24 interval=1 mult=(file=curvaperfil-industrial-semana.csv)
+
+// Conexao estrela wye, considerado potencia constante
+
+// Comentar uma linha ao alternar entre CargaSemana e CargaSemanaFim
+New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=40 pf=0.92 kv=0.38 daily=curvaperfil-industrial-semana
+
+// Monitor da carga
+New monitor.CargaDistrib_potencia element=load.CargaDistrib terminal=1 mode=1 ppolar=0
+New monitor.CargaDistrib element=load.CargaDistrib terminal=1 mode=0
+
+
