@@ -31,6 +31,7 @@ dss.solution_solve()
 dss.text("show power elements")
 dss.text("show voltage elements")
 dss.text("show current elements")
+dss.text("show meters")
 
 #Linhas principais e cargas
 dss.text("Export monitors LinhaDistrib_potencia")
