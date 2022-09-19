@@ -42,7 +42,7 @@ New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspe
 // Medidores de energia
 // Grupo A e subgrupos A
 New EnergyMeter.medidorLinhaDistrib element=Line.LinhaDistrib terminal=1
-New EnergyMeter.medidorA element=Line.LinhaA terminal=1
+New EnergyMeter.medidorA element=Line.LinhaA terminal=2
 New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=2
 //New EnergyMeter.medidorA2 element=Line.LinhaA2 terminal=2
 //New EnergyMeter.medidorA3 element=Line.LinhaA3 terminal=2
