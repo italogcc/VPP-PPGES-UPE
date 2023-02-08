@@ -26,18 +26,12 @@ New LineCode.LinhaEspec nphases=3 basefreq=60 units=km
 // Grupos
 New Line.LinhaDistrib phases=3 bus1=BarraFonte bus2=BarraDistrib length=0.2 units=km linecode=LinhaEspec
 New Line.LinhaA phases=3 bus1=BarraDistrib bus2=A length=0.15 units=km linecode=LinhaEspec
-//New Line.LinhaE phases=3 bus1=BarraDistrib bus2=E length=0.15 units=km linecode=LinhaEspec
 
 // Subgrupo A
 New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA2 phases=3 bus1=A bus2=A2 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
 New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
-// Subgrupo E
-//New Line.LinhaE1 phases=3 bus1=E bus2=E1 length=0.05 units=km linecode=LinhaEspec
-//New Line.LinhaE2 phases=3 bus1=E bus2=E2 length=0.05 units=km linecode=LinhaEspec
-//New Line.LinhaE3 phases=3 bus1=E bus2=E3 length=0.05 units=km linecode=LinhaEspec
-//New Line.LinhaE4 phases=3 bus1=E bus2=E4 length=0.05 units=km linecode=LinhaEspec
 
 // Medidores de energia
 // Grupo A e subgrupos A
@@ -45,16 +39,15 @@ New EnergyMeter.medidorLinhaDistrib element=Line.LinhaDistrib terminal=1
 New EnergyMeter.medidorA element=Line.LinhaA terminal=2
 New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=2
 New EnergyMeter.medidorA2 element=Line.LinhaA2 terminal=2
-//New EnergyMeter.medidorA3 element=Line.LinhaA3 terminal=1
-//New EnergyMeter.medidorA4 element=Line.LinhaA4 terminal=1
+//New EnergyMeter.medidorA3 element=Line.LinhaA3 terminal=2
+//New EnergyMeter.medidorA4 element=Line.LinhaA4 terminal=2
 
 // Monitores
 New monitor.LinhaDistrib_potencia element=line.LinhaDistrib terminal=1 mode=1 ppolar=no
 New monitor.LinhaDistrib element=line.LinhaDistrib terminal=1 mode=0
 New monitor.LinhaA_potencia element=Line.LinhaA terminal=2 mode=1 ppolar=0
 New monitor.LinhaA element=Line.LinhaA terminal=2 mode=0
-//New monitor.LinhaE_potencia element=Line.LinhaE terminal=1 mode=1 ppolar=0
-//New monitor.LinhaE_tensao element=Line.LinhaE terminal=1 mode=0
+
 // Linha A1
 New monitor.linhaA1_potencia element=Line.LinhaA1 terminal=1 mode=1 ppolar=0
 New monitor.linhaA1_tensao element=Line.LinhaA1 terminal=1 mode=0
@@ -64,13 +57,86 @@ New monitor.linhaA2_tensao element=Line.LinhaA2 terminal=1 mode=0
 
 // Conexão com subgrupo A1
 Redirect subgrupoA1.dss
-//Redirect gd-fv-A1.dss
-Redirect ad-bateria-A1.dss
+Redirect gd-fv-A1.dss
 
 // Conexão com subgrupo A2
-//Redirect subgrupoA2.dss
-//Redirect gd-fv-A2.dss
-//Redirect ad-bateria-A2.dss
+Redirect subgrupoA2.dss
+Redirect gd-fv-A2.dss
+
+// Definicoes de baterias //
+// Curva da bateria
+New LoadShape.BateriaCurvaMod1 npts=24 interval=1
+~ mult=[0 0 0 0 0 0 0 -1 -1 -1 -1 -1 0 0 0 0 0 0.8 0.9 0.94 1 0.93 0 0]
+New LoadShape.BateriaCurvaMod2 npts=24 interval=1
+~ mult=[0 0 0 0 0 0 0 -1 -1 -1 -1 -1 0 0 0 0 0 0.8 0.9 0.94 1 0.93 0 0]
+
+// Considerando kwrated=10 kwhrated=40
+// Conexao na barra A1-1 
+New Storage.BateriaA1-1 phases=3 bus1=A1-1 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurvaMod1
+// Conexao na barra A1-2
+New Storage.BateriaA1-2 phases=3 bus1=A1-2 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurvaMod1
+// Conexao na barra A1-3
+New Storage.BateriaA1-3 phases=3 bus1=A1-3 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurvaMod1
+// Conexao na barra A1-4
+New Storage.BateriaA1-4 phases=3 bus1=A1-4 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurvaMod1
+// Conexao na barra A1-5 
+New Storage.BateriaA1-5 phases=3 bus1=A1-5 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurvaMod1
+
+// Definicoes de monitores
+// Baterias A1-1
+New monitor.ad-bateria-A1-1_potencia element=Storage.BateriaA1-1 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-1_tensao element=Storage.BateriaA1-1 terminal=1 mode=0
+New monitor.ad-bateria-A1-1_variaveis element=Storage.BateriaA1-1 terminal=1 mode=3
+// Baterias A1-2
+New monitor.ad-bateria-A1-2_potencia element=Storage.BateriaA1-2 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-2_tensao element=Storage.BateriaA1-2 terminal=1 mode=0
+New monitor.ad-bateria-A1-2_variaveis element=Storage.BateriaA1-2 terminal=1 mode=3
+// Baterias A1-3
+New monitor.ad-bateria-A1-3_potencia element=Storage.BateriaA1-3 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-3_tensao element=Storage.BateriaA1-3 terminal=1 mode=0
+New monitor.ad-bateria-A1-3_variaveis element=Storage.BateriaA1-3 terminal=1 mode=3
+// Baterias A1-4
+New monitor.ad-bateria-A1-4_potencia element=Storage.BateriaA1-4 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-4_tensao element=Storage.BateriaA1-4 terminal=1 mode=0
+New monitor.ad-bateria-A1-4_variaveis element=Storage.BateriaA1-4 terminal=1 mode=3
+// Baterias A1-5
+New monitor.ad-bateria-A1-5_potencia element=Storage.BateriaA1-5 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A1-5_tensao element=Storage.BateriaA1-5 terminal=1 mode=0
+New monitor.ad-bateria-A1-5_variaveis element=Storage.BateriaA1-5 terminal=1 mode=3
+
+// Considerando kwrated=9.8 kwhrated=39.2
+// Conexao na barra A2-1 
+New Storage.BateriaA2-1 phases=3 bus1=A2-1 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurvaMod2
+// Conexao na barra A2-2
+New Storage.BateriaA2-2 phases=3 bus1=A2-2 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurvaMod2
+// Conexao na barra A2-3
+New Storage.BateriaA2-3 phases=3 bus1=A2-3 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurvaMod2
+// Conexao na barra A2-4
+New Storage.BateriaA2-4 phases=3 bus1=A2-4 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurvaMod2
+// Conexao na barra A2-5 
+New Storage.BateriaA2-5 phases=3 bus1=A2-5 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurvaMod2
+
+// Definicoes de monitores
+// Baterias A2-1
+New monitor.ad-bateria-A2-1_potencia element=Storage.BateriaA2-1 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-1_tensao element=Storage.BateriaA2-1 terminal=1 mode=0
+New monitor.ad-bateria-A2-1_variaveis element=Storage.BateriaA2-1 terminal=1 mode=3
+// Baterias A2-2
+New monitor.ad-bateria-A2-2_potencia element=Storage.BateriaA2-2 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-2_tensao element=Storage.BateriaA2-2 terminal=1 mode=0
+New monitor.ad-bateria-A2-2_variaveis element=Storage.BateriaA2-2 terminal=1 mode=3
+// Baterias A2-3
+New monitor.ad-bateria-A2-3_potencia element=Storage.BateriaA2-3 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-3_tensao element=Storage.BateriaA2-3 terminal=1 mode=0
+New monitor.ad-bateria-A2-3_variaveis element=Storage.BateriaA2-3 terminal=1 mode=3
+// Baterias A2-4
+New monitor.ad-bateria-A2-4_potencia element=Storage.BateriaA2-4 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-4_tensao element=Storage.BateriaA2-4 terminal=1 mode=0
+New monitor.ad-bateria-A2-4_variaveis element=Storage.BateriaA2-4 terminal=1 mode=3
+// Baterias A2-5
+New monitor.ad-bateria-A2-5_potencia element=Storage.BateriaA2-5 terminal=1 mode=1 ppolar=0 
+New monitor.ad-bateria-A2-5_tensao element=Storage.BateriaA2-5 terminal=1 mode=0
+New monitor.ad-bateria-A2-5_variaveis element=Storage.BateriaA2-5 terminal=1 mode=3
 
 // Demanda de carga na Barra de Distribuicao
 Redirect carga-distrib-residencial.dss

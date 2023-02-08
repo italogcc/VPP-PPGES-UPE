@@ -28,8 +28,8 @@ print()
 dss.solution_solve()
 		
 # Mostra os relatórios
-dss.text("show power elements")
 dss.text("show voltage elements")
+dss.text("show power elements")
 dss.text("show current elements")
 dss.text("show meters")
 
@@ -58,5 +58,78 @@ dss.solution_solve()
 dss.text("Export fault")
 dss.text("Export seqz")
 dss.text("show fault")
+
+##Subgrupo A1
+#dss.text("Export monitors linhaA1_potencia")
+#dss.text("Plot monitor object=linhaA1_potencia channels=(1 3 5)")
+#dss.text("Export monitors linhaA1_tensao")
+#dss.text("Plot monitor object=linhaA1_tensao channels=(1 3 5)")
+#dss.text("Export monitors cargaA1_potencia")
+#dss.text("Plot monitor object=cargaA1_potencia channels=(1 3 5)")
+#dss.text("Export monitors cargaA1_tensao")
+#dss.text("Plot monitor object=cargaA1_tensao channels=(1 3 5)")
+##Subgrupo A1-1
+#dss.text("Export monitors barraA1-1_potencia")
+#dss.text("Plot monitor object=barraA1-1_potencia channels=(1 3 5)")
+#
+##Subgrupo A2
+#dss.text("Export monitors linhaA2_potencia")
+#dss.text("Plot monitor object=linhaA2_potencia channels=(1 3 5)")
+#dss.text("Export monitors linhaA2_tensao")
+#dss.text("Plot monitor object=linhaA2_tensao channels=(1 3 5)")
+#dss.text("Export monitors cargaA2_potencia")
+#dss.text("Plot monitor object=cargaA2_potencia channels=(1 3 5)")
+#dss.text("Export monitors cargaA2_tensao")
+#dss.text("Plot monitor object=cargaA2_tensao channels=(1 3 5)")
+#
+#-----------------------
+#
+## Preparar os métodos
+# # Exibição dos gráficos
+# funcMonitorLinhasPrinc()
+# funcMonitorCargaDistrib()
+# funcMonitorSubgrupoA1()
+# funcMonitorSubgrupoA2()
+#
+# # Exibição dos gráficos
+# # Funcao para exibir os monitores de linhas principais
+# def funcMonitorLinhasPrinc():
+#     dss.text("Export monitors LinhaA_potencia")
+#     dss.text("Plot monitor object=LinhaA_potencia channels=(1 3 5)")
+#     dss.text("Export monitors LinhaA_tensao")
+#     dss.text("Plot monitor object=LinhaA_tensao channels=(1 3 5)")
+#
+# # Funcao para exibir os monitores da carga na linha de distribuição
+# def funcMonitorCargaDistrib(self):
+#     dss.text("Export monitors CargaDistrib_potencia")
+#     dss.text("Plot monitor object=CargaDistrib_potencia channels=(1 3 5)")
+#     dss.text("Export monitors CargaDistrib_tensao")
+#     dss.text("Plot monitor object=CargaDistrib_potencia channels=(1 3 5)")
+#
+# # Funcao para exibir os monitores do subgrupo A1
+# def funcMonitorSubgrupoA1():
+#     dss.text("Export monitors linhaA1_potencia")
+#     dss.text("Plot monitor object=linhaA1_potencia channels=(1 3 5)")
+#     dss.text("Export monitors linhaA1_tensao")
+#     dss.text("Plot monitor object=linhaA1_tensao channels=(1 3 5)")
+#     dss.text("Export monitors cargaA1_potencia")
+#     dss.text("Plot monitor object=cargaA1_potencia channels=(1 3 5)")
+#     dss.text("Export monitors cargaA1_tensao")
+#     dss.text("Plot monitor object=cargaA1_tensao channels=(1 3 5)")
+#     # Subgrupo A1-1
+#     dss.text("Export monitors barraA1-1_potencia")
+#     dss.text("Plot monitor object=barraA1-1_potencia channels=(1 3 5)")
+#
+# # Funcao para exibir os monitores do subgrupo A2
+# def funcMonitorSubgrupoA2():
+#     dss.text("Export monitors linhaA2_potencia")
+#     dss.text("Plot monitor object=linhaA2_potencia channels=(1 3 5)")
+#     dss.text("Export monitors linhaA2_tensao")
+#     dss.text("Plot monitor object=linhaA2_tensao channels=(1 3 5)")
+#     dss.text("Export monitors cargaA2_potencia")
+#     dss.text("Plot monitor object=cargaA2_potencia channels=(1 3 5)")
+#     dss.text("Export monitors cargaA2_tensao")
+#     dss.text("Plot monitor object=cargaA2_tensao channels=(1 3 5)")
+
 
 

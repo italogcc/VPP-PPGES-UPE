@@ -6,49 +6,75 @@
 //		e Usinas Virtuais Urbanas
 //		Recife-PE, 2022
 
-// Limpa a memoria do OpenDSS
+// Limpa a memoria do programa
 clear
 
-// Definicao do circuito
-New Circuit.Fonte phases=3 basekv=0.38 bus1=BarraFonte
+// Novo circuito
+new circuit.Fonte phases=3 basekv=0.38 bus1=BarraFonte
 
-// Linhas
-New LineCode.Arranjo nphases=3 basefreq=60 units=km
-~ Rmatrix=[ 0.17 | 0.05 0.17 | 0.05 0.05 0.17 ]  ! ohm/km
-~ Xmatrix=[ 0.79 | 0.41 0.79 | 0.41 0.45 0.79 ]  ! ohm/km
-~ Cmatrix=[ 8.63 | -2.04 8.75 | -0.90 -2.04 8.41 ]  ! nF/km
+// Linhas eletricas de conexao
+// Especificacoes da linha
+// Dados para linha desequilibrada
+New LineCode.LinhaEspec nphases=3 basefreq=60 units=km
+~ Rmatrix=[ 0.17 | 0.05 0.17 | 0.05 0.05 0.17 ]		! ohm/km
+~ Xmatrix=[ 0.79 | 0.41 0.79 | 0.41 0.45 0.79 ]		! ohm/km
+~ Cmatrix=[ 8.63 | -2.04 8.75 | -0.90 -2.04 8.41 ]	! nF/km
+// Dados para linha equilibrada
+//New LineCode.LinhaEspec nphases=3 basefreq=60 R1=1.15 X1=0.088 R0=1.2 X0=0.088 C1=0 C0=0 units=km
 
-New Line.LinhaDistrib phases=3 bus1=BarraFonte bus2=BarraDistrib length=0.2 units=km linecode=Arranjo
-New Line.LinhaA phases=3 bus1=BarraDistrib bus2=BarraA length=0.15 units=km linecode=Arranjo
+// Conexoes de linhas e barramentos
+// Grupos
+New Line.LinhaDistrib phases=3 bus1=BarraFonte bus2=BarraDistrib length=0.2 units=km linecode=LinhaEspec
+New Line.LinhaA phases=3 bus1=BarraDistrib bus2=A length=0.15 units=km linecode=LinhaEspec
 
-// Insercao de Medidores de Energia
-New energymeter.med-LinhaDistrib element=line.LinhaDistrib terminal=1
-New energymeter.med-LinhaA element=line.LinhaA terminal=1
+// Subgrupo A
+New Line.LinhaA1 phases=3 bus1=A bus2=A1 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA2 phases=3 bus1=A bus2=A2 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA3 phases=3 bus1=A bus2=A3 length=0.05 units=km linecode=LinhaEspec
+New Line.LinhaA4 phases=3 bus1=A bus2=A4 length=0.05 units=km linecode=LinhaEspec
 
-// Definicao da carga
-New LoadShape.curvaperfil-residencial-semana npts=24 interval=1 mult=(file=curvaperfil-residencial-semana.csv)
-New Load.CargaDistrib phases=3 conn=wye bus1=BarraDistrib kw=40 pf=0.92 kv=0.38 daily=curvaperfil-residencial-semana
+// Medidores de energia
+// Grupo A e subgrupos A
+New EnergyMeter.medidorLinhaDistrib element=Line.LinhaDistrib terminal=1
+New EnergyMeter.medidorA element=Line.LinhaA terminal=2
+New EnergyMeter.medidorA1 element=Line.LinhaA1 terminal=2
+New EnergyMeter.medidorA2 element=Line.LinhaA2 terminal=2
 
-//gd-01
-// Sem GD
-//ad-01
-// Sem AD
+// Monitores
+New monitor.LinhaDistrib_potencia element=line.LinhaDistrib terminal=1 mode=1 ppolar=no
+New monitor.LinhaDistrib element=line.LinhaDistrib terminal=1 mode=0
+New monitor.LinhaA_potencia element=Line.LinhaA terminal=2 mode=1 ppolar=0
+New monitor.LinhaA element=Line.LinhaA terminal=2 mode=0
+// Linha A1
+New monitor.linhaA1_potencia element=Line.LinhaA1 terminal=1 mode=1 ppolar=0
+New monitor.linhaA1_tensao element=Line.LinhaA1 terminal=1 mode=0
+// Linha A2
+New monitor.linhaA2_potencia element=Line.LinhaA2 terminal=1 mode=1 ppolar=0
+New monitor.linhaA2_tensao element=Line.LinhaA2 terminal=1 mode=0
 
+// Conexão com subgrupo A1
+Redirect subgrupoA1.dss
+Redirect gd-fv-A1.dss
+Redirect ad-bateria-A1.dss
+
+// Conexão com subgrupo A2
+Redirect subgrupoA2.dss
+Redirect gd-fv-A2.dss
+Redirect ad-bateria-A2.dss
+
+// Demanda de carga na Barra de Distribuicao
+Redirect carga-distrib-residencial.dss
+
+// Valores de bases para resultados
+// Resultados em pu
 Set voltagebases = [0.38]
 calcVoltagebases
 
-New monitor.LinhaDistrib_potencia element=line.LinhaDistrib terminal=1 mode=1 ppolar=no
-New monitor.LinhaDistrib element=line.LinhaDistrib terminal=1 mode=0
-
-New monitor.linhaA_potencia element=line.LinhaA terminal=2 mode=1 ppolar=no
-New monitor.linhaA element=line.LinhaA terminal=2 mode=0
-
-New monitor.CargaDistrib_potencia element=load.CargaDistrib terminal=1 mode=1 ppolar=0
-New monitor.CargaDistrib element=load.CargaDistrib terminal=1 mode=0
-
+// Resolucao do circuito
 set mode = daily
 set stepsize = 1h
 set number = 48
+// normal 24h, 48h para visualizar a carga e descarga da bateria
 
-
-
+// Resolve o arquivo OpenDSS
+//solve

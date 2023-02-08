@@ -18,6 +18,22 @@ New Storage.BateriaA1-4 phases=3 bus1=A1-4 kv=0.38 kwrated=10 kwhrated=40 dispmo
 // Conexao na barra A1-5 
 New Storage.BateriaA1-5 phases=3 bus1=A1-5 kv=0.38 kwrated=10 kwhrated=40 dispmode=follow daily=BateriaCurva
 
+// Controle de carga de baterias
+
+// Modo 1
+//New StorageController.ctrlBATA1  element=line.LinhaA1 terminal=1  
+//~ kWTarget=9 PFTarget=0.98 %ratecharge=30
+//~ eventlog=y
+
+// Modo 2
+//new StorageController.ctrlBATA1 element=line.LinhaA1
+//~ %Reserve=20.0 
+//~ ModeCharge=Loadshape 
+//~ ModeDischarge=Loadshape 
+////~ Yearly=ls_bat_cntrl  
+//~ EventLog=Yes
+
+
 // Definicoes de monitores
 
 // Baterias A1-1

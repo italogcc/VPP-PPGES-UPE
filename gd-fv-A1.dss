@@ -21,28 +21,66 @@ New Tshape.CurvaTemp npts=24 interval=1
 ~ temp=[25 25 25 25 25 25 25 25 35 40 45 50 60 60 55 40 35 30 25 25 25 25 25 25]
 
 // Conexoes nas barras
-// 3~, fp=1 (sem produzir nem receber var)
 // 300W pmpp x 50 placas por edificio = 15000W pmpp
 
 // Conexao na barra A1-1 
-New PVSystem.SolarA1-1 phases=3 bus1=A1-1 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=1
+New PVSystem.SolarA1-1 phases=3 bus1=A1-1 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=0.92
 ~ %cutin=0.1 %cutout=0.1 P-tCurve=RelacaoTeP effcurve=RelacaoPeEfic Daily=CurvaIrrad Tdaily=CurvaTemp
 
 // Conexao na barra A1-2
-New PVSystem.SolarA1-2 phases=3 bus1=A1-2 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=1
+New PVSystem.SolarA1-2 phases=3 bus1=A1-2 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=0.92
 ~ %cutin=0.1 %cutout=0.1 P-tCurve=RelacaoTeP effcurve=RelacaoPeEfic Daily=CurvaIrrad Tdaily=CurvaTemp
 
 // Conexao na barra A1-3
-New PVSystem.SolarA1-3 phases=3 bus1=A1-3 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=1
+New PVSystem.SolarA1-3 phases=3 bus1=A1-3 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=0.92
 ~ %cutin=0.1 %cutout=0.1 P-tCurve=RelacaoTeP effcurve=RelacaoPeEfic Daily=CurvaIrrad Tdaily=CurvaTemp
 
 // Conexao na barra A1-4
-New PVSystem.SolarA1-4 phases=3 bus1=A1-4 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=1
+New PVSystem.SolarA1-4 phases=3 bus1=A1-4 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=0.92
 ~ %cutin=0.1 %cutout=0.1 P-tCurve=RelacaoTeP effcurve=RelacaoPeEfic Daily=CurvaIrrad Tdaily=CurvaTemp
 
 // Conexao na barra A1-5
-New PVSystem.SolarA1-5 phases=3 bus1=A1-5 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=1
+New PVSystem.SolarA1-5 phases=3 bus1=A1-5 kv=0.38 irrad=0.98 pmpp=15.0 temperature=25 pf=0.92
 ~ %cutin=0.1 %cutout=0.1 P-tCurve=RelacaoTeP effcurve=RelacaoPeEfic Daily=CurvaIrrad Tdaily=CurvaTemp
+
+// Controle Volt-Watt - 3 pontos
+//New XYCurve.curvaVW npts=4 Yarray=[1 1 0]
+//~ XArray=[1 1.02 1.08]
+//New InvControl.InvFVA1 mode=VOLTWATT voltage_curvex_ref=rated voltwatt_curve=curvaVW
+//~ EventLog=yes VoltwattYAxis=PMPPPU
+//~ DeltaP_factor=0.50
+
+// Controle Volt-Watt - 4 pontos
+//New XYCurve.curvaVW npts=4 Yarray=(1.0,1.0,0.0,0.0)
+//~ XArray=(0.0,1.0,1.1,2.0)
+//New InvControl.InvFVA1 mode=VOLTWATT voltage_curvex_ref=rated voltwatt_curve=curvaVW
+//~ EventLog=yes
+
+// Controle Volt-Var
+//New XYCurve.curvaVV npts=4 XArray=(0.5 0.95 1.05 1.5) Yarray=(1 1 -1 -1)
+//New InvControl.InvFVA1 mode=VOLTVAR voltage_curvex_ref=rated vvc_curve1=curvaVV EventLog=yes
+//~ VV_RefReactivePower=VARMAX_WATTS 
+//~ deltaQ_factor=0.2 
+
+// CVW-CVV - Modo dinamico automatico
+//New InvControl.InvFVA1 mode=DYNAMICREACCURR DbVMin=0.95 DbVMax=1.05
+//~ ArGraLowV=10.0 ArGraHiV=10.0 DynReacavgwindowlen=120s EventLog=yes
+
+// CVW-CVV - Modo combinado
+//New XYCurve.curvaVW npts=4 Yarray=(1.0,1.0,0.0,0.0)
+//~ XArray=(0.0,1.0,1.1,2.0)
+//New XYCurve.curvaVV npts=4 Yarray=(1.0,1.0,-1.0,-1.0)
+//~ XArray=(0.5,0.95,1.05,1.5)
+//New InvControl.InvFVA1 CombiMode=VV_VW voltage_curvex_ref=rated VV_RefReactivePower=VARAVAL_WATTS 
+//~ vvc_curve1=curvaVV  
+//~ voltwatt_curve=curvaVW  
+//~ VarChangeTolerance=0.25			//Outra opcao 0.025
+//~ VoltageChangeTolerance = 0.1	//Outra opcao 0.0001
+//~ VoltwattYaxis = PMPPPU  
+//~ EventLog=yes
+//~ deltaQ_factor=1		//default 0.7
+//~ deltaP_factor=1		//default 1.0
+
 
 // Monitores dos paineis fotovoltaicos
 

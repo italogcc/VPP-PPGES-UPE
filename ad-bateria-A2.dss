@@ -7,21 +7,32 @@ New LoadShape.BateriaCurva npts=24 interval=1
 // Conexoes nas barras do sistema
 
 // Considerando kwrated=9.8 kwhrated=39.2
-
 // Conexao na barra A2-1 
 New Storage.BateriaA2-1 phases=3 bus1=A2-1 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurva
-
 // Conexao na barra A2-2
 New Storage.BateriaA2-2 phases=3 bus1=A2-2 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurva
-
 // Conexao na barra A2-3
 New Storage.BateriaA2-3 phases=3 bus1=A2-3 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurva
-
 // Conexao na barra A2-4
 New Storage.BateriaA2-4 phases=3 bus1=A2-4 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurva
-
 // Conexao na barra A2-5 
 New Storage.BateriaA2-5 phases=3 bus1=A2-5 kv=0.38 kwrated=9.8 kwhrated=39.2 dispmode=follow daily=BateriaCurva
+
+// Controle de carga de baterias
+
+// Modo 1
+//New StorageController.ctrlBATA2  element=line.LinhaA2 terminal=1  
+//~ kWTarget=9 PFTarget=0.98 %ratecharge=30
+//~ eventlog=y
+
+// Modo 2
+//new StorageController.ctrlBATA2 element=line.LinhaA2
+//~ %Reserve=20.0 
+//~ ModeCharge=Loadshape 
+//~ ModeDischarge=Loadshape 
+////~ Yearly=ls_bat_cntrl  
+//~ EventLog=Yes
+
 
 // Definicoes de monitores
 

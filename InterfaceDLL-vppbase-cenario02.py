@@ -28,8 +28,8 @@ print()
 dss.solution_solve()
 		
 # Mostra os relatórios
-dss.text("show power elements")
 dss.text("show voltage elements")
+dss.text("show power elements")
 dss.text("show current elements")
 dss.text("show meters")
 
